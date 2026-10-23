@@ -1,4 +1,3 @@
-
 """
 Django settings for adocao_animais project.
 
@@ -16,6 +15,7 @@ from django.contrib.messages import constants as messages
 
 import environ
 import os
+import cloudinary
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +27,14 @@ env = environ.Env(
 )
 
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+# Configure Cloudinary
+cloudinary.config(
+    cloud_name=env('CLOUDINARY_CLOUD_NAME'),
+    api_key=env('CLOUDINARY_API_KEY'),
+    api_secret=env('CLOUDINARY_API_SECRET'),
+    api_proxy='http://proxy.server:3128',
+)
 
 
 # Quick-start development settings - unsuitable for production
@@ -117,7 +125,7 @@ DATABASES = {
 
 
 # Password validation
-# https://docs.djangoproject.com/en/6.1/ref/settings/#auth-password-validators
+# https://docs.djangoproject.com/en/6.1/howto/password_validation/
 
 AUTH_PASSWORD_VALIDATORS = [
     {
